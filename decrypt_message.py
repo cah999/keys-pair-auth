@@ -35,4 +35,4 @@ if __name__ == '__main__':
     message = input("Enter the encrypted message: ")
     print(decrypt_message(
         message,
-        "example-rsa.pem"))
+        "rsa_key.pem"))
