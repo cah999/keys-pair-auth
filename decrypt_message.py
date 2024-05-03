@@ -1,15 +1,22 @@
 import base64
+import os
 
 import rsa
 from cryptography.hazmat.backends import default_backend as crypto_default_backend
 from cryptography.hazmat.primitives import serialization
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def decrypt_message(encrypted_message: str, private_key_path: str) -> str:
     with open(private_key_path, "rb") as private_key_file:
         private_key = serialization.load_pem_private_key(
             private_key_file.read(),
-            password=b'super_secret_password',
+            password=bytes(
+                os.getenv("PASSPHRASE"),
+                encoding="utf-8"
+            ),
             backend=crypto_default_backend()
         )
 
